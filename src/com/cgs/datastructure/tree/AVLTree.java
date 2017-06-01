@@ -24,31 +24,50 @@ public class AVLTree<T extends Comparable<T>> {
     k1 = k2.getLeftChild();
     k2.setLeftChild(k1.getRightChild());
     k2.setHeight(Math.max(height(k2.getLeftChild()),height(k2.getRightChild())) + 1);
-    k1.setHeight(Math.max(height(k1.getLeftChild()),k2.getHeight()));
+    k1.setHeight(Math.max(height(k1.getLeftChild()),k2.getHeight()) + 1);
     return k1;
   }
 
   public AVLTreeNode<T> RRRotation(AVLTreeNode<T> k1){
     AVLTreeNode<T> k2;
     k2 = k1.getRightChild();
+    k1.setLeftChild(k2.getRightChild());
     k2.setLeftChild(k1);
+    k2.setHeight(Math.max(height(k2.getLeftChild()),height(k2.getRightChild())) + 1);
+    k1.setHeight(Math.max(height(k1.getLeftChild()),k2.getHeight()));
     return k2;
   }
 
-  public AVLTreeNode<T> LRRotation(AVLTreeNode<T> k2){
-    return k2;
+  public AVLTreeNode<T> LRRotation(AVLTreeNode<T> k3){
+    k3.setLeftChild(RRRotation(k3.getLeftChild()));
+    return LLRotation(k3);
   }
 
-  public AVLTreeNode<T> RLRotation(AVLTreeNode<T> k2){
-    AVLTreeNode<T> k1;
-    return k1;
+  public AVLTreeNode<T> RLRotation(AVLTreeNode<T> k1){
+    k1.setRightChild(LLRotation(k1.getRightChild()));
+    return RRRotation(k1);
   }
 
-  public void insert(AVLTreeNode<T> node){
-
+  public void insert(T value){
+    AVLTreeNode node = new AVLTreeNode();
+    AVLTreeNode currentNode = root;
+    node.setValue(value);
+    if (currentNode == null){
+      root = node;
+    }else{
+      while (currentNode != null){
+        if (currentNode.getValue() == node.getValue()){
+          return;
+        }else if(value.compareTo((T) currentNode.getValue()) < 0){
+          currentNode = currentNode.getLeftChild();
+        }else if(value.compareTo((T) currentNode.getRightChild()) < 0){
+          currentNode = currentNode.getRightChild();
+        }
+      }
+    }
   }
 
-  public void delete(AVLTreeNode node){
+  public void delete(T value){
 
   }
 

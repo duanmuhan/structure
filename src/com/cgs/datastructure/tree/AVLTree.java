@@ -71,6 +71,53 @@ public class AVLTree<T extends Comparable<T>> {
 
   }
 
+  /*
+  * 判断树是否平衡
+  * */
+  public boolean isBalanced(AVLTreeNode node){
+    if (node == null){
+      return true;
+    }
+    int left = depth(node.getLeftChild());
+    int right = depth(node.getRightChild());
+    return Math.abs(left - right) <=1 && isBalanced(node.getLeftChild()) && isBalanced(node.getRightChild());
+  }
+
+  private int depth(AVLTreeNode root){
+    if (root == null){
+      return 0;
+    }
+    return Math.max(depth(root.getLeftChild()),depth(root.getRightChild())) + 1;
+  }
+
+  public boolean isSameTree(AVLTreeNode node1,AVLTreeNode node2){
+    if (node1 == null && node2 == null){
+      return true;
+    }
+    if (node1.getValue() == node2.getValue()){
+      return isSameTree(node1.getLeftChild(),node2.getLeftChild()) && isSameTree(node1.getRightChild(),node2.getRightChild());
+    }
+    return false;
+  }
+
+  public boolean SymmetricTree(AVLTreeNode treeNode){
+    if (root == null){
+      return true;
+    }
+    return false;
+  }
+
+  //树的问题最好往递归的思路上去发展。
+  private boolean isSymmetricHelp(AVLTreeNode left,AVLTreeNode right){
+    if (left== null || right == null){
+      return left== right;
+    }
+    if (left.getValue() != left.getRightChild()){
+      return  false;
+    }
+    return isSymmetricHelp(left.getLeftChild(),right.getRightChild()) && isSymmetricHelp(left.getLeftChild(),right.getLeftChild());
+  }
+
 
   class AVLTreeNode<T extends Comparable<T>>{
     private T value;

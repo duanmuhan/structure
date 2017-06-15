@@ -211,6 +211,7 @@ public class Solutions {
     return max;
   }
 
+
   public static void main(String[] args) {
     Solutions solutions = new Solutions();
     int[] nums =new int[]{3,2,4};
@@ -224,4 +225,5 @@ public class Solutions {
     int reverse = solutions.removeDuplicates(nums1);
     System.out.println(reverse);
   }
+
 }
